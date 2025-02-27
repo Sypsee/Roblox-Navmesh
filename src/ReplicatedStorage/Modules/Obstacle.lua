@@ -14,8 +14,11 @@ function obstacle:PushBack(point : Vector3)
     if #self.points > 0 then
         if (point - self.points[0]).Magnitude < 10.0 then
             obstacle:Complete()
+            return
         end
     end
+
+    table.insert(self.points, point)
 end
 
 function obstacle:Complete()
@@ -28,7 +31,7 @@ end
 function obstacle:FlipVertex()
     for i=#self.points, 1, -1 do
         self.points[i], self.points[self.points-i] = self.points[self.points-i], self.points[i]
-    end    
+    end
 end
 
 --https://en.wikipedia.org/wiki/Curve_orientation
